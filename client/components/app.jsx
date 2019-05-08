@@ -5,22 +5,15 @@ class App extends React.Component {
       form1: true,
       form2: false,
       form3: false,
+      review: false,
       formData : {
-        name : '',
-        email: '',
-        password: '',
-        line1: '',
-        line2: '', 
-        city: '', 
-        state: '', 
-        zip: '',
-        creditCard: '', 
-        expiration: '', 
-        cvv: '', 
-        billingZip: ''
+        name : '', email: '', password: '', /*form 1*/
+        line1: '', line2: '', city: '',  state: '', zip: '', /*form 2*/
+        creditCard: '', expiration: '', cvv: '',  billingZip: ''/*form 3*/
       }
     }
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this); 
   }
   handleChange(e) {
     const field = e.target.name;
@@ -32,20 +25,51 @@ class App extends React.Component {
       }
     })
   }
+  handleSubmit(e) {
+    e.preventDefault();
+    const part = e.target.id;
+    const int = Number(part.slice(-1)) + 1;
+    let nextPart = part.slice(0, -1) + int;
+    if (int > 3) {
+      nextPart = 'review';
+    }
+    this.setState({
+      [part]: false,
+      [nextPart]: true
+    });
+  }
   render() {
+    if (!this.state.review) {
+      return (
+        <div>
+        <h1>Multi Part Checkout</h1>
+        <FormView part={this.state.form1 ? form1 : this.state.form2 ? form2 : form3}
+          handleChange={this.handleChange} 
+          handleSubmit={this.handleSubmit}
+          forms={this.state.formData} />
+      </div>
+    )
+  } else {
     return (
       <div>
         <h1>Multi Part Checkout</h1>
-        <FormView handleChange={this.handleChange} forms={this.state.formData} />
+        <Review />
       </div>
     )
+  }
   }
 }
 
 const FormView = (props) => (
   <div>
-    {form1.map((field, i) => <InputField field={field} handleChange={props.handleChange} forms={props.forms} key={`form${i}`} />)}
-    <input type="submit"></input>
+    <form id={props.part.meta.name} onSubmit={props.handleSubmit}>
+      {props.part.data.map((field, i) => 
+        <InputField field={field} 
+        handleChange={props.handleChange} 
+        forms={props.forms} 
+        key={`form${i}`} />)}
+      <input type="submit"></input>
+    </form>
   </div>
 );
 
@@ -59,33 +83,47 @@ const InputField = (props) => (
       onChange={props.handleChange} 
       ></input><br /> 
   </div>
-)
-
-
+);
 
 const Review = () => (
   <div>
-    <h1>Thanks for shopping with us!</h1>
+    <h1>Thanks for buying stuff!</h1>
   </div>
-)
+);
 
-const form1 = [
+const form1 = {
+  meta: {
+    name: 'form1'
+  },
+  data: [
   {name: 'name', type: 'text'}, 
   {name: 'email', type: 'text'}, 
   {name: 'password', type: 'text'}
-];
-const form2 = [
+  ]
+};
+
+const form2 = {
+  meta: {
+    name: 'form2'
+  },
+  data: [
     {name: 'line1', type: 'text'}, 
     {name: 'line2', type: 'text'}, 
     {name: 'city', type: 'text'}, 
     {name: 'state', type: 'text'}, 
     {name: 'zip', type: 'text'}
-];
-const form3 = [
+  ]
+};
+const form3 = {
+  meta: {
+    name: 'form3'
+  },
+  data: [
     {name: 'creditCard', type: 'text'}, 
     {name: 'expiration', type: 'text'}, 
     {name: 'cvv', type: 'text'}, 
     {name: 'billingZip', type: 'text'}
-];
+  ]
+};
 
 ReactDOM.render(<App />, document.getElementById("root"));
