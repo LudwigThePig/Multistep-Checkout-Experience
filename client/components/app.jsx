@@ -9,7 +9,15 @@ class App extends React.Component {
         name : '',
         email: '',
         password: '',
-
+        line1: '',
+        line2: '', 
+        city: '', 
+        state: '', 
+        zip: '',
+        creditCard: '', 
+        expiration: '', 
+        cvv: '', 
+        billingZip: ''
       }
     }
     this.handleChange = this.handleChange.bind(this);
@@ -28,103 +36,30 @@ class App extends React.Component {
     return (
       <div>
         <h1>Multi Part Checkout</h1>
-        {this.state.form1 ? <Form1 handleChange={this.handleChange} forms={this.state.formData} /> 
-          : this.state.form2 ? <Form2 /> 
-          : this.state.form3 ? <Form3 /> 
-          : <Review />}
+        <FormView handleChange={this.handleChange} forms={this.state.formData} />
       </div>
     )
   }
 }
 
+const FormView = (props) => (
+  <div>
+    {form1.map((field, i) => <InputField field={field} handleChange={props.handleChange} forms={props.forms} key={`form${i}`} />)}
+    <input type="submit"></input>
+  </div>
+);
 
-class Form1 extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleForm = this.handleForm.bind(this);
-  }
-
-  handleForm(e) {
-    e.preventDefault();
-  }
-
-  render() {
-    return (
-      <div>
-        <form onSubmit={this.handleForm}>
-          <label>Name</label>
-          <input 
-            type="text" 
-            name="name"
-            value={this.props.forms.name}
-            onChange={this.props.handleChange} 
-            ></input><br />
-
-          <label>Email</label>
-          <input 
-            type="text" 
-            name="email"
-            value={this.props.forms.email}
-            onChange={this.props.handleChange} 
-            ></input><br />
-
-          <label>Password</label>
-          <input 
-            type="text" 
-            name="password"
-            value={this.props.forms.password}
-            onChange={this.props.handleChange} 
-            ></input><br /> 
-
-          <input type="submit"></input>
-        </form>
-      </div>
-    )
-  }
-}
-class Form2 extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleForm = this.handleForm.bind(this);
-  }
-
-  handleForm(e) {
-    e.preventDefault();
-  }
-
-  render(){
-    return(
-      <div>
-      <form onSubmit={this.handleForm}>
-        <input type="text"></input>
-        <input type="submit"></input>
-      </form>
-    </div>
-      )
-    }
-  }
-
-  class Form3 extends React.Component {
-    constructor(props) {
-      super(props);
-      this.handleForm = this.handleForm.bind(this);
-    }
-    
-    handleForm(e) {
-      e.preventDefault();
-    }
-
-    render() {
-      return (
-        <div>
-          <form onSubmit={this.handleForm}>
-            <input type="text"></input>
-            <input type="submit"></input>
-          </form>
-        </div>
-      )
-    }
-  }
+const InputField = (props) => (
+  <div>
+    <label>{props.field.name}</label>
+    <input 
+      type={props.field.type} 
+      name={props.field.name}
+      value={props.forms[props.name]}
+      onChange={props.handleChange} 
+      ></input><br /> 
+  </div>
+)
 
 
 
@@ -134,8 +69,23 @@ const Review = () => (
   </div>
 )
 
-  // F1 collects name, email, and password for account creation.
-  // F2 collects ship to address (line 1, line 2, city, state, zip code) and phone number.
-  // F3 collects credit card #, expiry date, CVV, and billing zip code.
+const form1 = [
+  {name: 'name', type: 'text'}, 
+  {name: 'email', type: 'text'}, 
+  {name: 'password', type: 'text'}
+];
+const form2 = [
+    {name: 'line1', type: 'text'}, 
+    {name: 'line2', type: 'text'}, 
+    {name: 'city', type: 'text'}, 
+    {name: 'state', type: 'text'}, 
+    {name: 'zip', type: 'text'}
+];
+const form3 = [
+    {name: 'creditCard', type: 'text'}, 
+    {name: 'expiration', type: 'text'}, 
+    {name: 'cvv', type: 'text'}, 
+    {name: 'billingZip', type: 'text'}
+];
 
 ReactDOM.render(<App />, document.getElementById("root"));
