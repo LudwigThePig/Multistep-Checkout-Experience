@@ -14,15 +14,16 @@ class App extends React.Component {
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this); 
+    this.postData = this.postData.bind(this);
   }
+
   handleChange(e) {
     const field = e.target.name;
     const value = e.target.value;
-    console.log(field, value)
-    return this.setState({
-      formData: {
-        [field]: value
-      }
+    let dummy = this.state.formData;
+    dummy[field] = value
+    this.setState({
+      formData: dummy
     })
   }
   handleSubmit(e) {
@@ -32,12 +33,29 @@ class App extends React.Component {
     let nextPart = part.slice(0, -1) + int;
     if (int > 3) {
       nextPart = 'review';
+      this.postData(this.state.formData);
     }
     this.setState({
       [part]: false,
       [nextPart]: true
     });
   }
+
+  postData(data) {
+    console.log(data);
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+    return fetch('/checkoutData', options)
+      .then(res => res.json())
+      .then(data => console.log(data))
+      .catch(err => console.log(err));
+  }
+
   render() {
     if (!this.state.review) {
       return (
