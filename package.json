@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "babel client/components --watch --out-dir public --presets=env,react --source-maps inline",
+    "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +17,13 @@
   "bugs": {
     "url": "https://github.com/LudwigThePig/Multistep-Chcckout-Experience/issues"
   },
-  "homepage": "https://github.com/LudwigThePig/Multistep-Chcckout-Experience#readme"
+  "homepage": "https://github.com/LudwigThePig/Multistep-Chcckout-Experience#readme",
+  "dependencies": {
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "express": "^4.16.4",
+    "nodemon": "^1.19.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  }
 }
