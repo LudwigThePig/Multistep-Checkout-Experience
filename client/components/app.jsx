@@ -21,15 +21,57 @@ class App extends React.Component {
 class Form1 extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      name : '',
+      email: '',
+      password: ''
+    }
+
+    this.handleForm = this.handleForm.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
+
+  handleChange(e) {
+    const field = e.target.name;
+    const value = e.target.value;
+    console.log(field, value)
+    return this.setState({
+      [field]: value
+    })
+  }
+
   handleForm(e) {
     e.preventDefault();
+    console.log(e);
   }
   render() {
     return (
       <div>
         <form onSubmit={this.handleForm}>
-          <input type="text"></input>
+          <label>Name</label>
+          <input 
+          type="text" 
+          name="name"
+          value={this.state.name}
+          onChange={this.handleChange} 
+          ></input><br />
+
+          <label>Email</label>
+          <input 
+            type="text" 
+            name="email"
+            value={this.state.email}
+            onChange={this.handleChange} 
+            ></input><br />
+
+          <label>Password</label>
+          <input 
+          type="text" 
+          name="password"
+          value={this.state.password}
+          onChange={this.handleChange} 
+          ></input><br />
+
           <input type="submit"></input>
         </form>
       </div>
@@ -39,6 +81,7 @@ class Form1 extends React.Component {
 class Form2 extends React.Component {
   constructor(props) {
     super(props);
+    this.handleForm = this.handleForm.bind(this);
   }
 
   handleForm(e) {
@@ -60,6 +103,7 @@ class Form2 extends React.Component {
   class Form3 extends React.Component {
     constructor(props) {
       super(props);
+      this.handleForm = this.handleForm.bind(this);
     }
     
     handleForm(e) {
