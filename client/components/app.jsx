@@ -99,8 +99,10 @@ const InputField = (props) => {
     <input
       type={props.field.type} 
       name={props.field.name}
+      title={props.field.title}
       value={props.forms[props.name]}
       onChange={props.handleChange}
+      pattern={props.field.pattern}
       required={props.field.required}
       /><br /> 
   </div>
@@ -119,9 +121,9 @@ const form1 = {
     name: 'form1'
   },
   data: [
-  {name: 'name', type: 'text', required: true}, 
-  {name: 'email', type: 'text', required: true}, 
-  {name: 'password', type: 'password', required: true}
+  {name: 'name', type: 'text', title: 'We are on a first name basis ;)', pattern: '[A-Za-z]*', required: true}, 
+  {name: 'email', type: 'text', title: 'Must be a valid email address', pattern: '^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$',required: true}, 
+  {name: 'password', type: 'password', title: 'must be between 1 and 20 characters', pattern: '.{1,20}', required: true}
   ]
 };
 
@@ -130,11 +132,11 @@ const form2 = {
     name: 'form2'
   },
   data: [
-    {name: 'line1', type: 'text', required: true}, 
-    {name: 'line2', type: 'text', required: false}, 
-    {name: 'city', type: 'text', required: true}, 
-    {name: 'state', type: 'text', required: true}, 
-    {name: 'zip', type: 'text', required: true}
+    {name: 'line1', type: 'text', title: 'Must be a valid street address', pattern: '\\d{1,}\\s*\\w*\\s\\w*[.]{0,}', required: true}, 
+    {name: 'line2', type: 'text', title: '', pattern: '.*', required: false}, 
+    {name: 'city', type: 'text', title: '', pattern: '\\w*', required: true}, 
+    {name: 'state', type: 'text', title: '', pattern: '[A-Za-z]{2}', required: true}, 
+    {name: 'zip', type: 'text', title: '', pattern: '\\d{5}', required: true}
   ]
 };
 const form3 = {
@@ -142,10 +144,10 @@ const form3 = {
     name: 'form3'
   },
   data: [
-    {name: 'creditCard', type: 'text', required: true}, 
-    {name: 'expiration', type: 'text', required: true}, 
-    {name: 'cvv', type: 'text', required: true}, 
-    {name: 'billingZip', type: 'text', required: true}
+    {name: 'creditCard', type: 'text', title: 'Must be a valid credit card with no spaces', pattern: '[0-9]{13,16}', required: true}, 
+    {name: 'expiration', type: 'text', title: 'must be in mm/yyyy format', pattern: '\\d{2}[/]\\d{4}', required: true}, 
+    {name: 'cvv', type: 'text', title: 'Must be between three and four characters', pattern: '\\d{3,3}', required: true}, 
+    {name: 'billingZip', type: 'text', title: 'Must be a 5 digit zip code', pattern: '\\d{5}', required: true}
   ]
 };
 
