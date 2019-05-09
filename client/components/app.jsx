@@ -39,6 +39,12 @@ class App extends React.Component {
       [part]: false,
       [nextPart]: true
     });
+    const inputFields = document.getElementsByTagName('input');
+    [].forEach.call(inputFields, (field) => {
+      if (field.type !== 'submit') {
+        return field.value = '';
+      }
+    });
   }
 
   postData(data) {
