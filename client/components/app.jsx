@@ -80,13 +80,13 @@ class App extends React.Component {
 
 const FormView = (props) => (
   <div>
-    <form id={props.part.meta.name} onSubmit={props.handleSubmit}>
+    <form class='form-plate' id={props.part.meta.name} onSubmit={props.handleSubmit}>
       {props.part.data.map((field, i) => 
         <InputField field={field} 
         handleChange={props.handleChange} 
         forms={props.forms} 
         key={`form${i}`} />)}
-      <input type="submit"></input>
+      <input value="next" type="submit"></input>
     </form>
   </div>
 );
@@ -94,6 +94,7 @@ const FormView = (props) => (
 const InputField = (props) => (
   <div>
     <label>{props.field.name}</label>
+    <br />
     <input 
       type={props.field.type} 
       name={props.field.name}
@@ -114,9 +115,9 @@ const form1 = {
     name: 'form1'
   },
   data: [
-  {name: 'name', type: 'text'}, 
-  {name: 'email', type: 'text'}, 
-  {name: 'password', type: 'text'}
+  {name: 'name', type: 'text', required: true}, 
+  {name: 'email', type: 'text', required: true}, 
+  {name: 'password', type: 'password', required: true}
   ]
 };
 
@@ -125,11 +126,11 @@ const form2 = {
     name: 'form2'
   },
   data: [
-    {name: 'line1', type: 'text'}, 
-    {name: 'line2', type: 'text'}, 
-    {name: 'city', type: 'text'}, 
-    {name: 'state', type: 'text'}, 
-    {name: 'zip', type: 'text'}
+    {name: 'line1', type: 'text', required: true}, 
+    {name: 'line2', type: 'text', required: false}, 
+    {name: 'city', type: 'text', required: true}, 
+    {name: 'state', type: 'text', required: true}, 
+    {name: 'zip', type: 'text', required: true}
   ]
 };
 const form3 = {
@@ -137,10 +138,10 @@ const form3 = {
     name: 'form3'
   },
   data: [
-    {name: 'creditCard', type: 'text'}, 
-    {name: 'expiration', type: 'text'}, 
-    {name: 'cvv', type: 'text'}, 
-    {name: 'billingZip', type: 'text'}
+    {name: 'creditCard', type: 'text', required: true}, 
+    {name: 'expiration', type: 'text', required: true}, 
+    {name: 'cvv', type: 'text', required: true}, 
+    {name: 'billingZip', type: 'text', required: true}
   ]
 };
 
