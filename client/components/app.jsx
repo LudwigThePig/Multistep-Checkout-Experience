@@ -15,6 +15,7 @@ class App extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this); 
     this.postData = this.postData.bind(this);
+    this.goBack = this.goBack.bind(this);
   }
 
   handleChange(e) {
@@ -26,6 +27,22 @@ class App extends React.Component {
       formData: dummy
     })
   }
+
+  goBack(e) {
+    e.preventDefault();
+    if (this.state.form2) {
+      this.setState({
+        form1: true,
+        form2: false
+      })
+    } else if (this.state.form3) {
+      this.setState({
+        form2: true,
+        form3: false
+      })
+    }
+  }
+
   handleSubmit(e) {
     e.preventDefault();
     const part = e.target.id;
@@ -44,7 +61,7 @@ class App extends React.Component {
       if (field.type !== 'submit') {
         return field.value = '';
       }
-    });
+    }); 
   }
 
   postData(data) {
@@ -66,12 +83,13 @@ class App extends React.Component {
     if (!this.state.review) {
       return (
         <div>
-        <h1>Multi Part Checkout</h1>
-        <FormView part={this.state.form1 ? form1 : this.state.form2 ? form2 : form3}
-          handleChange={this.handleChange} 
-          handleSubmit={this.handleSubmit}
-          forms={this.state.formData} />
-      </div>
+          <h1>Multi Part Checkout</h1>
+          <FormView part={this.state.form1 ? form1 : this.state.form2 ? form2 : form3}
+            handleChange={this.handleChange} 
+            handleSubmit={this.handleSubmit}
+            forms={this.state.formData} />
+            <input value="Go Back" type="submit" onClick={this.goBack}></input>
+        </div>
     )
   } else {
     return (

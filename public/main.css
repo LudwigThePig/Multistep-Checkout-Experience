@@ -19,8 +19,9 @@ body{
 input[type=submit]{
   background: #1c5d99;
   color: white;
-  height: 35px;
-  width: 70px;
+  height: auto;
+  width: auto;
+  padding: 7px 10px;
   font-weight: 300;
   font-size: 1.3em;
   border: 1px solid white;
