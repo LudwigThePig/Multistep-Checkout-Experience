@@ -80,7 +80,7 @@ class App extends React.Component {
 
 const FormView = (props) => (
   <div>
-    <form class='form-plate' id={props.part.meta.name} onSubmit={props.handleSubmit}>
+    <form className='form-plate' id={props.part.meta.name} onSubmit={props.handleSubmit}>
       {props.part.data.map((field, i) => 
         <InputField field={field} 
         handleChange={props.handleChange} 
@@ -91,18 +91,22 @@ const FormView = (props) => (
   </div>
 );
 
-const InputField = (props) => (
-  <div>
+const InputField = (props) => { 
+  return (
+    <div>
     <label>{props.field.name}</label>
     <br />
-    <input 
+    <input
       type={props.field.type} 
       name={props.field.name}
       value={props.forms[props.name]}
-      onChange={props.handleChange} 
-      ></input><br /> 
+      onChange={props.handleChange}
+      required={props.field.required}
+      /><br /> 
   </div>
 );
+
+}
 
 const Review = () => (
   <div>
